@@ -1,0 +1,32 @@
+/* Центрируем всё */
+.todo-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* Убираем стандартные стили списка */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Один todo */
+.todo-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Текст задачи */
+.todo-list span {
+  flex: 1;
+}

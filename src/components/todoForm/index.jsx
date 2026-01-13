@@ -1,21 +1,19 @@
 import React, { useState } from 'react'
-import { Button, Input } from 'rsuite'
 import { useDispatch } from 'react-redux'
+import { Input, Button, Stack } from 'rsuite'
 import { addTodo } from '../../redux/slices/todoSlice'
 
 const TodoForm = () => {
   const [text, setText] = useState('')
   const dispatch = useDispatch()
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
+  const handleAdd = () => {
     if (text.trim() === '') return
 
     dispatch(
       addTodo({
         id: Date.now().toString(),
-        text: text,
+        text,
         completed: false,
       })
     )
@@ -24,20 +22,17 @@ const TodoForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-    
+    <Stack spacing={10} style={{ maxWidth: 600, margin: '20px auto' }}>
       <Input
         placeholder="Enter new todo"
         value={text}
-        onChange={(value) => setText(value)}
-        style={{ marginBottom: 10 }}
+        onChange={(value) => setText(value)} // 🔥 ВАЖНО
       />
 
-     
-      <Button appearance="primary" type="submit">
+      <Button appearance="primary" onClick={handleAdd}>
         Add Todo
       </Button>
-    </form>
+    </Stack>
   )
 }
 
