@@ -1,50 +1,49 @@
-import React, { useState } from 'react'
-import { Input, Button, Stack } from 'rsuite'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { addTodo } from '../../redux/slices/todoSlices' 
-
-const TodoForm = () => {
-  const [text, setText] = useState('')
+import { Button, Stack } from 'rsuite'
+import { toggleTodo, removeTodo } from '../../redux/slices/todoSlices'
+const TodoItem = ({ todo }) => {
   const dispatch = useDispatch()
-
-  const handleAdd = () => {
-    if (!text.trim()) return
-
-    dispatch(
-      addTodo({
-        id: Date.now().toString(),
-        text,
-        completed: false,
-      })
-    )
-
-    setText('')
-  }
+  if (!todo) return null
 
   return (
     <Stack
-      direction="column"   // 🔥 ВАЖНО: вертикально
-      spacing={12}
-      style={{ maxWidth:900, margin: '40px auto' }}
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      style={{
+        padding: '10px 0',
+        borderBottom: '1px solid #ddd',
+      }}
     >
-      <Input
-        placeholder="Enter new todo"
-        value={text}
-        onChange={setText}
-        size="lg"
-      />
-
-      <Button
-        appearance="primary"
-        color="green"
-        size="lg"
-        block               
-        onClick={handleAdd}
+      <span
+        style={{
+          textDecoration: todo.completed ? 'line-through' : 'none',
+        }}
       >
-        Add Todo
-      </Button>
+        {todo.text}
+      </span>
+
+      <Stack direction="row" spacing={10}>
+        <Button
+          appearance="primary"
+          size="xs"
+          onClick={() => dispatch(toggleTodo(todo.id))}
+        >
+          {todo.completed ? 'Undo' : 'Complete'}
+        </Button>
+
+        <Button
+          appearance="primary"
+          color="red"
+          size="xs"
+          onClick={() => dispatch(removeTodo(todo.id))}
+        >
+          Delete
+        </Button>
+      </Stack>
     </Stack>
   )
 }
 
-export default TodoForm
+export default TodoItem
