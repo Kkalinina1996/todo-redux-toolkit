@@ -4,10 +4,10 @@ import TodoList from './components/todoList'
 
 function App() {
   return (
-    <>
-      <TodoForm />
-      <TodoList />
-    </>
+    
+   <>
+   
+  </>
   )
 }
 

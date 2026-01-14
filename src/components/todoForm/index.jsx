@@ -26,7 +26,7 @@ const TodoForm = () => {
       <Input
         placeholder="Enter new todo"
         value={text}
-        onChange={(value) => setText(value)} // 🔥 ВАЖНО
+        onChange={(value) => setText(value)}
       />
 
       <Button appearance="primary" onClick={handleAdd}>
