@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
+// Начальное состояние Redux
 const initialState = {
   todos: [
     {
@@ -11,23 +11,24 @@ const initialState = {
   ],
 }
 
-
+// Создаём slice
 const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-   
+    // Добавить задачу
     addTodo: (state, action) => {
       state.todos.push(action.payload)
     },
 
+    // Удалить задачу по id
     removeTodo: (state, action) => {
       state.todos = state.todos.filter(
         (todo) => todo.id !== action.payload
       )
     },
 
-
+    // Переключить completed
     toggleTodo: (state, action) => {
       const todo = state.todos.find(
         (todo) => todo.id === action.payload
@@ -40,6 +41,8 @@ const todoSlice = createSlice({
   },
 })
 
-
+// Экспорт actions
 export const { addTodo, removeTodo, toggleTodo } = todoSlice.actions
+
+// Экспорт reducer
 export default todoSlice.reducer

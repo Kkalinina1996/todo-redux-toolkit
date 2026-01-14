@@ -1,49 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Input, Button, Stack } from 'rsuite'
 import { useDispatch } from 'react-redux'
-import { Button, Stack } from 'rsuite'
-import { toggleTodo, removeTodo } from '../../redux/slices/todoSlices'
-const TodoItem = ({ todo }) => {
+import { addTodo } from '../../redux/slices/todoSlice'
+
+const TodoForm = () => {
+  const [text, setText] = useState('')
   const dispatch = useDispatch()
-  if (!todo) return null
+
+  const handleAdd = () => {
+    if (!text.trim()) return
+
+    dispatch(
+      addTodo({
+        id: Date.now().toString(),
+        text,
+        completed: false,
+      })
+    )
+
+    setText('')
+  }
 
   return (
     <Stack
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-      style={{
-        padding: '10px 0',
-        borderBottom: '1px solid #ddd',
-      }}
+      direction="column"   // 🔥 ВАЖНО: вертикально
+      spacing={12}
+      style={{ maxWidth:900, margin: '40px auto' }}
     >
-      <span
-        style={{
-          textDecoration: todo.completed ? 'line-through' : 'none',
-        }}
+      <Input
+        placeholder="Enter new todo"
+        value={text}
+        onChange={setText}
+        size="lg"
+      />
+
+      <Button
+        appearance="primary"
+        color="green"
+        size="lg"
+        block               // 🔥 на всю ширину
+        onClick={handleAdd}
       >
-        {todo.text}
-      </span>
-
-      <Stack direction="row" spacing={10}>
-        <Button
-          appearance="primary"
-          size="xs"
-          onClick={() => dispatch(toggleTodo(todo.id))}
-        >
-          {todo.completed ? 'Undo' : 'Complete'}
-        </Button>
-
-        <Button
-          appearance="primary"
-          color="red"
-          size="xs"
-          onClick={() => dispatch(removeTodo(todo.id))}
-        >
-          Delete
-        </Button>
-      </Stack>
+        Add Todo
+      </Button>
     </Stack>
   )
 }
 
-export default TodoItem
+export default TodoForm
