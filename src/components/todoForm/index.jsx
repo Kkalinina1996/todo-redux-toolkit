@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { Input, Button, Stack } from 'rsuite'
-import { addTodo } from '../../redux/slices/todoSlice'
+import { useDispatch } from 'react-redux'
+import { addTodo } from '../../redux/slices/todoSlices' 
 
 const TodoForm = () => {
   const [text, setText] = useState('')
   const dispatch = useDispatch()
 
   const handleAdd = () => {
-    if (text.trim() === '') return
+    if (!text.trim()) return
 
     dispatch(
       addTodo({
@@ -22,14 +22,25 @@ const TodoForm = () => {
   }
 
   return (
-    <Stack spacing={10} style={{ maxWidth: 600, margin: '20px auto' }}>
+    <Stack
+      direction="column"   // 🔥 ВАЖНО: вертикально
+      spacing={12}
+      style={{ maxWidth:900, margin: '40px auto' }}
+    >
       <Input
         placeholder="Enter new todo"
         value={text}
-        onChange={(value) => setText(value)}
+        onChange={setText}
+        size="lg"
       />
 
-      <Button appearance="primary" onClick={handleAdd}>
+      <Button
+        appearance="primary"
+        color="green"
+        size="lg"
+        block               
+        onClick={handleAdd}
+      >
         Add Todo
       </Button>
     </Stack>

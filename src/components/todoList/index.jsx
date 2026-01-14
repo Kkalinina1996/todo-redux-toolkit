@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux'
 import TodoItem from '../todoItem'
 
 const TodoList = () => {
-  const todos = useSelector((state) => state.todo.todos || [])
-
+  const todos = useSelector((state) => state.todo?.todos ?? [])
 
   return (
     <div>

@@ -16,7 +16,6 @@ const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    // Добавить задачу
     addTodo: (state, action) => {
       state.todos.push(action.payload)
     },
